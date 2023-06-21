@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<suite name="Master Test Suite">
-    <suite-files>
-        <suite-file path="LoginSuite.xml"></suite-file>
-    </suite-files>
-</suite>

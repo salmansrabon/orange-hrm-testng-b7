@@ -19,7 +19,7 @@ public class LoginTestRunner extends Setup {
         Assert.assertTrue(errorMessageActual.contains(errorMessageExpected));
     }
 
-    @Test(priority = 2, description = "User can login with valid creds", groups = "smoke")
+    @Test(priority = 2, description = "User can login with valid creds")
     public void doLogin() throws InterruptedException {
         loginPage = new LoginPage(driver);
         loginPage.doLogin("Admin", "admin123");

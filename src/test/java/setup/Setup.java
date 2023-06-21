@@ -14,14 +14,14 @@ import java.time.Duration;
 
 public class Setup {
     public WebDriver driver;
-    @BeforeTest(groups = "smoke")
+    @BeforeTest
     public void setup(){
         driver=new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.get("https://opensource-demo.orangehrmlive.com/");
     }
-    @AfterMethod(groups = "smoke")
+    @AfterMethod
     public void screenShot(ITestResult result){
         if (ITestResult.FAILURE == result.getStatus()) {
             try {
@@ -33,7 +33,7 @@ public class Setup {
         }
 
     }
-    @AfterTest(groups = "smoke")
+    @AfterTest
     public void closeDriver(){
         driver.findElement(By.className("oxd-userdropdown-icon")).click();
         driver.findElements(By.className("oxd-userdropdown-link")).get(3).click();

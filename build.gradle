@@ -20,12 +20,7 @@ dependencies {
 
 }
 test{
-
-    if(project.hasProperty("suite")){
-        systemProperties.put("suite",project.property("suite"))
-    }
-
     useTestNG() {
-        suites "./src/test/resources/"+systemProperties.get("suite")
+        suites "./src/test/resources/suite.xml"
     }
 }
