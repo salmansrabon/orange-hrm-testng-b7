@@ -2,9 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="1" verbose="1" name="Orange HRM Portal Automation">
     <test name="Orange HRM Automation">
+        <groups>
+            <run>
+                <include name="smoke"></include>
+            </run>
+        </groups>
         <classes>
             <class name="testrunner.LoginTestRunner"></class>
         </classes>
-
     </test>
 </suite>

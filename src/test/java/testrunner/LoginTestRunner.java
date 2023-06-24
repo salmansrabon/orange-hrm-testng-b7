@@ -1,11 +1,17 @@
 package testrunner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.DashboardPage;
 import page.LoginPage;
 import setup.Setup;
+import utils.Utils;
+
+import java.io.IOException;
 
 public class LoginTestRunner extends Setup {
     LoginPage loginPage;
@@ -19,10 +25,19 @@ public class LoginTestRunner extends Setup {
         Assert.assertTrue(errorMessageActual.contains(errorMessageExpected));
     }
 
-    @Test(priority = 2, description = "User can login with valid creds")
-    public void doLogin() throws InterruptedException {
+    @Test(priority = 2, description = "User can login with valid creds", groups = "smoke")
+    public void doLogin() throws InterruptedException, IOException, ParseException {
         loginPage = new LoginPage(driver);
-        loginPage.doLogin("Admin", "admin123");
+        JSONArray empArray= Utils.readJSONArray("./src/test/resources/Employees.json");
+        JSONObject empObj= (JSONObject) empArray.get(0);
+        if(System.getProperty("username")!=null && System.getProperty("password")!=null){
+            loginPage.doLogin(System.getProperty("username"),System.getProperty("password"));
+        }
+        else{
+            loginPage.doLogin(empObj.get("username").toString(), empObj.get("password").toString());
+        }
+
+
         dashboard = new DashboardPage(driver);
 
         SoftAssert softAssert = new SoftAssert();

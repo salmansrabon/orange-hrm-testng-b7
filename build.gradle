@@ -16,11 +16,26 @@ dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.10.0'
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation group: 'commons-io', name: 'commons-io', version: '2.13.0'
+    // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
+    implementation group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+// https://mvnrepository.com/artifact/io.qameta.allure/allure-testng
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: '2.22.2'
 
 
 }
 test{
     useTestNG() {
-        suites "./src/test/resources/suite.xml"
+        if(project.hasProperty("username") && project.hasProperty("password")){
+            systemProperties.put("username",project.property("username"))
+            systemProperties.put("password",project.property("password"))
+            print("From gradle "+project.property("username"))
+            print("From gradle "+project.property("password"))
+        }
+        if(project.hasProperty("suiteFile")){
+            systemProperties.put("suiteFile",project.property("suiteFile"))
+        }
+        suites "./src/test/resources/"+systemProperties.get("suiteFile")
     }
 }
